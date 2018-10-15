@@ -29,6 +29,15 @@ def say_hello():
     return render_template("hello.html")
 
 
+@app.route('/game')
+def show_madlib_form():
+    """Play game."""
+
+
+    return render_template("game.html")
+
+
+
 @app.route('/greet')
 def greet_person():
     """Greet user with compliment."""
