@@ -1,5 +1,5 @@
 """A madlib game that compliments its users."""
-
+from pprint import pprint
 from random import choice
 
 from flask import Flask, render_template, request
@@ -29,27 +29,38 @@ def say_hello():
     return render_template("hello.html")
 
 
-@app.route('/game')
-def show_madlib_form():
-    """Play game."""
-
-
-    return render_template("game.html")
-
-
-
 @app.route('/greet')
 def greet_person():
     """Greet user with compliment."""
 
     player = request.args.get("person")
 
-    compliment = choice(AWESOMENESS)
+    return render_template("greet.html",
+                           person=player,)
 
-    return render_template("compliment.html",
-                           person=player,
-                           compliment=compliment)
 
+@app.route('/play_game')
+def play_game():
+    """Plays game."""
+
+    game_response = request.args.get("play")
+    if game_response == "no":
+        return render_template("goodbye.html")
+    else: 
+        return render_template("play_game.html")
+                
+
+@app.route('/madlibs')
+def show_madlib():
+    color = request.args.get("color")
+    noun = request.args.get("noun")
+    person = request.args.get("person")
+    adjective = request.args.get("adjective")
+    return render_template("madlibs.html",
+    color=color,
+    noun=noun,
+    person=person,
+    adjective=adjective)
 
 if __name__ == '__main__':
     # Setting debug=True gives us error messages in the browser and also
