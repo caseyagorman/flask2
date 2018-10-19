@@ -1,38 +1,46 @@
-<!doctype html>
-<html>
-<head>
-  <title>Play game</title>
-</head>
-<body>
-    <form action="/madlibs">
-        Pick a color:
-        <select name="color">color
-            <option name="blue">blue</option>
-            <option name="red">red</option>
-            <option name="green">green</option>
-            <option name="purple">purple</option>
-            <option name="yellow">yellow</option>
-            <option name="orange">orange</option>
-        </select>
-        Pick a noun:
-        <select name="noun">noun
-            <option name="hat">hat</option>
-            <option name="pickle">pickle</option>
-            <option name="hoozit">hoozit</option>
-            <option name="spork">spork</option>
-            <option name="dongle">dongle</option>
-        </select>
-        Pick a person
-        <input type="text" name="person">
-        Pick an adjective    
-        <select name= "adjective">
-            <option name="juicy">juicy</option>
-            <option name="basic">basic</option>
-            <option name="boss">boss</option>
-            <option name="chill">chill</option>
-            <option name="neurotic">neurotic</option>
-        </select>
-    <input type="submit">
-    </form>
-</body>
-</html>
+{% extends "base.html" %}
+  <title>Play Game</title>
+{% block content %}
+<div class="jumbotron">
+    <h2>Ready to play!</h2>
+    <br>
+  <form action="/madlibs">
+    <div class="form-group">
+    <label for="color-group">Pick a color</label>
+    {% for color in color_choice %}
+    <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="color" value="{{ color }}">{{ color }}
+    </div>
+    {% endfor %}
+    
+
+
+  <div class="form-group">
+  <label for="color-group">Pick a noun</label>
+  {% for noun in noun_choice %}
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="noun" value="{{ noun }}">{{ noun }}
+  </div>
+  {% endfor %}
+  <div></div>
+
+  Pick a person:
+  <input type="text" name="person" value="You">
+  </div>
+
+
+  <div class="form-group">
+  <label for="color-group">Pick an adjective</label>
+  {% for adjective in adjective_choice %}
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="adjective" value="{{ adjective }}">{{ adjective }}
+  </div>
+  {% endfor %}
+  </div>
+  </div>
+ 
+  <input class="btn btn-primary" type="submit" value="Submit">
+  </form>
+</div>
+
+{% endblock %}

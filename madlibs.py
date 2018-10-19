@@ -1,5 +1,5 @@
 """A madlib game that compliments its users."""
-from pprint import pprint
+
 from random import choice
 
 from flask import Flask, render_template, request
@@ -35,20 +35,28 @@ def greet_person():
 
     player = request.args.get("person")
 
-    return render_template("greet.html",
-                           person=player,)
+    compliment = choice(AWESOMENESS)
 
+    return render_template("greet.html",
+                           person=player,
+                           compliment=compliment)
+
+COLORS = ["purple", "blue", "green", "yellow", "pink"]
+NOUNS = ["box", "chair", "man", "toothbrush", "dongle"]
+ADJECTIVES = ["brilliant", "bitch'in", "cool", "crunchy", "sad"]
 
 @app.route('/play_game')
 def play_game():
     """Plays game."""
 
-    game_response = request.args.get("play")
+    game_response = request.args.get("play_game")
     if game_response == "no":
         return render_template("goodbye.html")
-    else: 
-        return render_template("play_game.html")
-                
+    else:         
+        return render_template("play_game.html", 
+                                color_choice=COLORS,
+                                noun_choice=NOUNS,
+                                adjective_choice=ADJECTIVES)
 
 @app.route('/madlibs')
 def show_madlib():
@@ -56,11 +64,11 @@ def show_madlib():
     noun = request.args.get("noun")
     person = request.args.get("person")
     adjective = request.args.get("adjective")
-    return render_template("madlibs.html",
-    color=color,
-    noun=noun,
-    person=person,
-    adjective=adjective)
+
+    return render_template("madlibs.html", color=color,
+                            noun=noun,
+                            person=person,
+                            adjective=adjective)
 
 if __name__ == '__main__':
     # Setting debug=True gives us error messages in the browser and also
